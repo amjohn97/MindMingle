@@ -16,24 +16,24 @@ def get_publications_by_topic(topic, country=None):
 
     # Construct the API URL
     url = (
-        f'https://api.openalex.org/works?page=1&'
-        f'filter=default.search:{topic}'
+        f"https://api.openalex.org/works?page=1&"
+        f"filter=default.search:{topic}"
     )
 
     # Add country filter to the URL if provided
     if country:
         country = urllib.parse.quote_plus(country)
         url = (
-            f'https://api.openalex.org/works?page=1&'
-            f'filter=default.search:{topic},'
-            f'authorships.countries:countries/{country}'
+            f"https://api.openalex.org/works?page=1&"
+            f"filter=default.search:{topic},"
+            f"authorships.countries:countries/{country}"
         )
     # Make the API request
     response = requests.get(url)
 
     # Check if the request was successful
     if response.status_code == 200:
-        publications = response.json().get('results', [])
+        publications = response.json().get("results", [])
         # Extract relevant information from each publication
         extracted_data = []
         for pub in publications:
@@ -43,9 +43,9 @@ def get_publications_by_topic(topic, country=None):
             institution_data_list = []
             current_institution_data_list = []
             author_h_indices = []
-            for authorship in pub.get('authorships', []):
-                author_name = authorship['author']['display_name']
-                author_id = authorship['author']['id']
+            for authorship in pub.get("authorships", []):
+                author_name = authorship["author"]["display_name"]
+                author_id = authorship["author"]["id"]
                 author_h_index, institutiono = get_author_h_index(author_id)
                 authors.append(author_name)
                 author_h_indices.append(author_h_index)
@@ -53,46 +53,50 @@ def get_publications_by_topic(topic, country=None):
 
                 # Extract institution details
                 if institutiono:
-                    current_institution_data_list.append({
-                        'name': institutiono,
-                    })
+                    current_institution_data_list.append(
+                        {
+                            "name": institutiono,
+                        }
+                    )
 
                 # Extract institution details
-                institutions = authorship.get('institutions', [])
+                institutions = authorship.get("institutions", [])
                 for inst in institutions:
-                    institution_id = inst.get('id')
+                    institution_id = inst.get("id")
                     institution_details = get_institution_details(
                         institution_id
                     )
                     if institution_details:
                         institution_loc = {
-                            'name': institution_details.get('display_name'),
-                            'latitude': institution_details.get(
-                                'geo', {}).get('latitude'),
-                            'longitude': institution_details.get(
-                                'geo', {}).get('longitude'),
-                            'country': institution_details.get(
-                                'geo', {}).get('country'),
-                            'city': institution_details.get(
-                                'geo', {}).get('city')
+                            "name": institution_details.get("display_name"),
+                            "latitude": institution_details.get(
+                                "geo", {}).get("latitude"),
+                            "longitude": institution_details.get(
+                                "geo", {}).get("longitude"),
+                            "country": institution_details.get(
+                                "geo", {}).get("country"),
+                            "city": institution_details.get(
+                                "geo", {}).get("city"),
                         }
                         institution_data_list.append(institution_loc)
 
             pub_data = {
-                'title': pub.get('display_name', 'Title not available'),
-                'institutions': institution_data_list,
-                'current_institution': current_institution_data_list,
-                'authors': authors,
-                'author_ids': author_ids,
-                'cited_by_count': pub.get('cited_by_count', 0),
-                'author_h_indices': author_h_indices
+                "title": pub.get("display_name", "Title not available"),
+                "institutions": institution_data_list,
+                "current_institution": current_institution_data_list,
+                "authors": authors,
+                "author_ids": author_ids,
+                "cited_by_count": pub.get("cited_by_count", 0),
+                "author_h_indices": author_h_indices,
             }
             extracted_data.append(pub_data)
 
         return extracted_data
     else:
-        print(f"Failed to retrieve publication data."
-              f"Status code: {response.status_code}")
+        print(
+            f"Failed to retrieve publication data."
+            f"Status code: {response.status_code}"
+        )
         return []
 
 
@@ -105,23 +109,23 @@ def get_author_h_index(author_id):
     str: The institution of the author.
     """
     # Make the API request
-    author_number = author_id.split('/')[-1]
-    author_url = f'https://api.openalex.org/people/{author_number}'
+    author_number = author_id.split("/")[-1]
+    author_url = f"https://api.openalex.org/people/{author_number}"
     author_response = requests.get(author_url)
 
     # Check if the request was successful
     if author_response.status_code == 200:
-        author_data = author_response.json().get('summary_stats', {})
-        h_index = author_data.get('h_index', 0)
-        affiliations = author_response.json().get('affiliations', [])
+        author_data = author_response.json().get("summary_stats", {})
+        h_index = author_data.get("h_index", 0)
+        affiliations = author_response.json().get("affiliations", [])
         if affiliations:
-            institution = affiliations[0]['institution'].get(
-                'display_name', 'Unknown')
+            institution = affiliations[0]["institution"].get(
+                "display_name", "Unknown")
         else:
-            institution = 'Unknown'
+            institution = "Unknown"
         return h_index, institution
     else:
-        return 0, 'Unknown'
+        return 0, "Unknown"
 
 
 def get_institution_details(institution_id):
@@ -132,7 +136,7 @@ def get_institution_details(institution_id):
     Returns:dict: A dictionary containing details of the institution.
     """
     # Construct the API URL
-    url = f'https://api.openalex.org/institutions/{institution_id}'
+    url = f"https://api.openalex.org/institutions/{institution_id}"
 
     # Make the API request
     response = requests.get(url)
@@ -156,17 +160,20 @@ def calculate_institution_scores(publications):
     institution_scores = {}
 
     for pub in publications:
-        institutions = pub.get('institutions', [])
-        cited_by_count = pub.get('cited_by_count', 0)
-        author_h_indices = pub.get('author_h_indices', [])
+        institutions = pub.get("institutions", [])
+        cited_by_count = pub.get("cited_by_count", 0)
+        author_h_indices = pub.get("author_h_indices", [])
 
         for inst in institutions:
-            institution_name = inst.get('name')
+            institution_name = inst.get("name")
             publication_count = 1  # Each publication adds 1 to the count
 
             # Calculate the institution score
-            score = (publication_count * 0.4) + (cited_by_count * 0.4) + \
-                    (sum(author_h_indices) * 0.2)
+            score = (
+                (publication_count * 0.4)
+                + (cited_by_count * 0.4)
+                + (sum(author_h_indices) * 0.2)
+            )
 
             # Update or initialize the score for the institution
             if institution_name in institution_scores:
@@ -187,13 +194,13 @@ def calculate_author_scores(publications):
     author_scores = {}
 
     for pub in publications:
-        authors = pub.get('authors', [])
-        cited_by_count = pub.get('cited_by_count', 0)
-        author_h_indices = pub.get('author_h_indices', [])
+        authors = pub.get("authors", [])
+        cited_by_count = pub.get("cited_by_count", 0)
+        author_h_indices = pub.get("author_h_indices", [])
 
         for author_name, h_index in zip(authors, author_h_indices):
             # Calculate the author score based on h-index
-            score = 4*h_index + cited_by_count
+            score = 4 * h_index + cited_by_count
 
             # Update or initialize the score for the author
             if author_name in author_scores:
@@ -230,12 +237,12 @@ def get_top_professors(publications, top_n=5, top_universities=30):
         # Find the author's ID from the publications data
         author_info = None
         for pub in publications:
-            if author in pub['authors']:
-                author_index = pub['authors'].index(author)
-                author_id = pub['author_ids'][author_index]
-                h_index = pub['author_h_indices'][author_index]
-                current_university = pub['current_institution'][author_index][
-                    'name'
+            if author in pub["authors"]:
+                author_index = pub["authors"].index(author)
+                author_id = pub["author_ids"][author_index]
+                h_index = pub["author_h_indices"][author_index]
+                current_university = pub["current_institution"][author_index][
+                    "name"
                 ]
                 author_info = (author, author_id, h_index, current_university)
                 break
@@ -262,9 +269,9 @@ def get_top_institutions_and_professors(
     institution_scores = calculate_institution_scores(publications)
 
     # Sort the institution scores dictionary in descending order
-    sorted_institution_scores = sorted(institution_scores.items(),
-                                       key=lambda x: x[1],
-                                       reverse=True)
+    sorted_institution_scores = sorted(
+        institution_scores.items(), key=lambda x: x[1], reverse=True
+    )
 
     # Extract the top institutions and their scores
     top_institutions_dict = dict(sorted_institution_scores[:top_institutions])
@@ -274,8 +281,7 @@ def get_top_institutions_and_professors(
     for institution, score in top_institutions_dict.items():
         print(f"{institution}: {score:.3f}")
 
-    top_professors = get_top_professors(publications, top_n=10,
-                                        top_universities=3)
+    top_professors = get_top_professors(publications, top_n=10, top_universities=3)
 
     # Print the top professors and their details
     print("\nTop Professors:")
