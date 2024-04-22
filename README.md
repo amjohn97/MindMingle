@@ -1,5 +1,4 @@
 
-```markdown
 # ScholarQuest
 
 ScholarQuest is a Python package designed to explore the academic landscape by providing insights into top institutions and influential professors/authors in a given field. Leveraging the OpenAlex API, ScholarQuest fetches publication data, calculates institution and author scores, and presents the information in an easy-to-understand format.
@@ -50,4 +49,3 @@ Ann John
 Email: amjohn@andrew.cmu.edu
 
 You can also open an issue on the GitHub repository if you encounter any bugs or have feature requests.
-```
