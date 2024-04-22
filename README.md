@@ -1,7 +1,7 @@
 
 # ScholarQuest
 
-ScholarQuest is a Python package designed to explore the academic landscape by providing insights into top institutions and influential professors/authors in a given field. Leveraging the OpenAlex API, ScholarQuest fetches publication data, calculates institution and author scores, and presents the information in an easy-to-understand format.
+ScholarQuest is a Python package designed to explore academic publications by providing insights into top institutions and influential professors/authors in a given field. Leveraging the OpenAlex API, ScholarQuest fetches publication data, calculates institution and author scores, and presents the information in an easy-to-understand format.
 
 ## Features
 
@@ -18,10 +18,11 @@ pip install ScholarQuest
 
 ## Usage
 
-Using ScholarQuest is straightforward. Simply run the `main()` command followed by the topic of interest and, optionally, the country:
+Using ScholarQuest is straightforward. Simply run the `scholarquest()` function followed by the topic of interest and, optionally, the country:
 
-e.g  Topic: "artificial intelligence" 
-country: "us"
+scholarquest()
+Topic: "artificial intelligence" 
+Country: "us"
 
 This command will display the top institutions and professors/authors in the field of artificial intelligence in the United States.
 
@@ -31,12 +32,10 @@ We welcome contributions from the community! If you'd like to contribute to Scho
 
 1. Fork the repository and clone it to your local machine.
 2. Install the necessary dependencies.
-3. Make your changes, ensuring adherence to the [coding style guide](CONTRIBUTING.md).
+3. Make your changes.
 4. Write tests for any new functionality or modifications.
 5. Run the tests using `pytest` to ensure everything works as expected.
 6. Submit a pull request, detailing the changes made and the rationale behind them.
-
-Please read our [Contribution Guidelines](CONTRIBUTING.md) for more information.
 
 ## License
 
