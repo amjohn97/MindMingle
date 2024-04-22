@@ -1,4 +1,5 @@
 """Setup for the ScholarQuest package."""
+
 from setuptools import setup
 
 setup(
