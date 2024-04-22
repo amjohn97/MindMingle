@@ -29,7 +29,7 @@ This command will display the top institutions and professors/authors in the fie
 We welcome contributions from the community! If you'd like to contribute to ScholarQuest, please follow these guidelines:
 
 1. Fork the repository and clone it to your local machine.
-2. Install the necessary dependencies by running `pip install -r requirements.txt`.
+2. Install the necessary dependencies.
 3. Make your changes, ensuring adherence to the [coding style guide](CONTRIBUTING.md).
 4. Write tests for any new functionality or modifications.
 5. Run the tests using `pytest` to ensure everything works as expected.
