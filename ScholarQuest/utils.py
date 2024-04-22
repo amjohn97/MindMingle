@@ -205,7 +205,7 @@ def calculate_author_scores(publications):
 
         for author_name, h_index in zip(authors, author_h_indices):
             # Calculate the author score based on h-index
-            score = 5 * h_index + cited_by_count
+            score = 3 * h_index + cited_by_count
 
             # Update or initialize the score for the author
             if author_name in author_scores:
