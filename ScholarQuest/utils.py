@@ -69,14 +69,18 @@ def get_publications_by_topic(topic, country=None):
                     if institution_details:
                         institution_loc = {
                             "name": institution_details.get("display_name"),
-                            "latitude": institution_details.get(
-                                "geo", {}).get("latitude"),
+                            "latitude": institution_details.get("geo", {}).get(
+                                "latitude"
+                            ),
                             "longitude": institution_details.get(
-                                "geo", {}).get("longitude"),
-                            "country": institution_details.get(
-                                "geo", {}).get("country"),
-                            "city": institution_details.get(
-                                "geo", {}).get("city"),
+                                "geo", {}
+                            ).get("longitude"),
+                            "country": institution_details.get("geo", {}).get(
+                                "country"
+                            ),
+                            "city": institution_details.get("geo", {}).get(
+                                "city"
+                            ),
                         }
                         institution_data_list.append(institution_loc)
 
@@ -120,7 +124,8 @@ def get_author_h_index(author_id):
         affiliations = author_response.json().get("affiliations", [])
         if affiliations:
             institution = affiliations[0]["institution"].get(
-                "display_name", "Unknown")
+                "display_name", "Unknown"
+            )
         else:
             institution = "Unknown"
         return h_index, institution
@@ -223,8 +228,9 @@ def get_top_professors(publications, top_n=5, top_universities=30):
     author_scores = calculate_author_scores(publications)
 
     # Sort the author scores dictionary based on scores in descending order
-    sorted_scores = sorted(author_scores.items(), key=lambda x: x[1],
-                           reverse=True)
+    sorted_scores = sorted(
+        author_scores.items(), key=lambda x: x[1], reverse=True
+    )
 
     # Extract the top professors and their author IDs
     top_professors = []
@@ -281,8 +287,9 @@ def get_top_institutions_and_professors(
     for institution, score in top_institutions_dict.items():
         print(f"{institution}: {score:.3f}")
 
-    top_professors = get_top_professors(publications, top_n=10,
-                                        top_universities=3)
+    top_professors = get_top_professors(
+        publications, top_n=10, top_universities=3
+    )
 
     # Print the top professors and their details
     print("\nTop Professors:")
