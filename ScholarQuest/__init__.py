@@ -1,4 +1,5 @@
 """Top level initialization functions."""
+
 from .utils import get_publications_by_topic
 from .utils import get_author_h_index
 from .utils import get_institution_details

@@ -1,4 +1,5 @@
 """Module containing unit tests for ScholarQuest module."""
+
 import ScholarQuest
 
 
