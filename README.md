@@ -18,9 +18,10 @@ pip install ScholarQuest
 
 ## Usage
 
-Using ScholarQuest is straightforward. Simply run the `scholarquest` command followed by the topic of interest and, optionally, the country:
+Using ScholarQuest is straightforward. Simply run the `main()` command followed by the topic of interest and, optionally, the country:
 
-scholarquest "artificial intelligence" "United States"
+e.g  Topic: "artificial intelligence" 
+country: "us"
 
 This command will display the top institutions and professors/authors in the field of artificial intelligence in the United States.
 
