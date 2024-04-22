@@ -19,7 +19,7 @@ def test_get_author_h_index():
     h_index, institution = ScholarQuest.get_author_h_index(author_id)
 
     # To ensure that h_index is an integer and not equal to 0
-    assert isinstance(h_index, int) 
+    assert isinstance(h_index, int)
     assert h_index >= 0
 
     # To ensure that institution is a string and not None or an empty string
