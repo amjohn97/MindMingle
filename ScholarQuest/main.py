@@ -1,4 +1,5 @@
 """Module to handle user input and call the necessary functions."""
+
 from .utils import get_top_institutions_and_professors
 
 
