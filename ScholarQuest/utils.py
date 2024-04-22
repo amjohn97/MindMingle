@@ -285,4 +285,4 @@ def get_top_institutions_and_professors(
             f"h-index - {h_index}, Current University - {current_university}"
         )
 
-    return top_institutions_dict, top_professors
+    return top_institutions_dict, top_professors 
