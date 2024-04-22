@@ -281,7 +281,8 @@ def get_top_institutions_and_professors(
     for institution, score in top_institutions_dict.items():
         print(f"{institution}: {score:.3f}")
 
-    top_professors = get_top_professors(publications, top_n=10, top_universities=3)
+    top_professors = get_top_professors(publications, top_n=10,
+                                        top_universities=3)
 
     # Print the top professors and their details
     print("\nTop Professors:")
